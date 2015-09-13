@@ -88,15 +88,15 @@ bool laggTillVara(void){
   while (getchar() !='\n');
 
   puts("Mata in Priset på varan");
-  char NyaVaranPriset = toupper(getchar());
+  int NyaVaranPriset = getchar();
   while (getchar() !='\n');
 
   puts("Mata in Hyllplats på varan");
-  char NyaVaranHyllplats = toupper(getchar());
+  int NyaVaranHyllplats = getchar();
   while (getchar() !='\n');
 
   puts("Mata in Antalet av varan");
-  char NyaVaranAntal = toupper(getchar());
+  int NyaVaranAntal = getchar();
   while (getchar() !='\n');
   
 
