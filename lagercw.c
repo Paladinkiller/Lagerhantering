@@ -79,6 +79,11 @@ for(int i = 0; i < 4; i++) {
 }
 
 bool laggTillVara(void){
+  /*
+    if varuplatsen är upptagen
+    puts("I Lagerplatsen du anget finns redan en vara")
+  */  
+
   puts("Mata in namnet på varan");
   char NyaVarannamn = toupper(getchar());
   while (getchar() !='\n');
@@ -92,7 +97,7 @@ bool laggTillVara(void){
   while (getchar() !='\n');
 
   puts("Mata in Hyllplats på varan");
-  int NyaVaranHyllplats = getchar();
+  int NyaVaranLagerhylla = getchar();
   while (getchar() !='\n');
 
   puts("Mata in Antalet av varan");
@@ -100,7 +105,7 @@ bool laggTillVara(void){
   while (getchar() !='\n');
   
 
-  // lagerSkapning({NyaVarannamn,NyaVaranBeskrivning,NyaVaranPriset,NyaVaranHyllplats}) 
+  // lagerSkapning({NyaVarannamn,NyaVaranBeskrivning,NyaVaranPriset,NyaVaranLagerplats}) 
 
 }
 void taBortVara(void){
@@ -108,8 +113,42 @@ void taBortVara(void){
   puts ("REEEKT1");
 }
 void redigeraVara(void){
-  //visaVara() FIXME
-  puts ("REEEK2");
+  /*
+    visaVara() FIXME
+    
+  */
+  char b = toupper(getchar());
+  while (getchar() !='\n');
+
+  puts ("[N]amn");
+  puts ("[B]eskrivning");
+  puts ("[P]ris");
+  puts ("[L]agerhylla");
+  puts ("An[t]al");
+  puts ("Välj rad eller [a]vbryt:");
+
+  if (b =='N'){
+    puts("Fixme Name");
+  }
+  else if (b == 'B'){
+    puts("Fixme Beskrivning");
+  }
+  else if (b == 'P'){
+    puts("Fixme Pris");
+  }
+  else if (b == 'L'){
+    puts("Fixme Lagerhylla");
+      }
+  else if (b == 'T'){
+    puts("Fixme Antal");
+      }
+  else if (b == 'A'){
+    puts("Fixme Avbryt");
+      }
+  else {
+    redigeraVara ();
+  }
+
 }
 void listaKorgen(void){
   /* for(int i = 0; i < 3; i++) {
@@ -122,17 +161,22 @@ void listaKorgen(void){
 void angraSenaste(void){
   puts ("REEEKT4");
 }
+
 void visaVara(void){
-  //Visa 20 första varorna i arrayen som en lista 1-20 
+ 
+  /*
+    Visa 20 första varorna i arrayen som en lista 1-20 
+  */
   puts("Mata in Numret på varan du vill visa");
-  char VisaVaran = toupper(getchar());
+  int VisaVaran = getchar();
   while (getchar() !='\n');
-  ;
+  
   /* 
 printf("%c\n",Namn);
 printf("%c\n",Beskrivning);   
 printf("%d\n",Pris);
 printf("%c\n",Hyllplats);
 printf("%d\n",Antal);
-*/
+  */  
 }
+
