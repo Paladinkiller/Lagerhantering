@@ -85,32 +85,46 @@ bool laggTillVara(void){
   */  
 
   puts("Mata in namnet på varan");
-  char NyaVarannamn = toupper(getchar());
-  while (getchar() !='\n');
+  char NyaVarannamn[256] ;
+  fgets(NyaVarannamn, sizeof(NyaVarannamn), stdin);
 
   puts("Mata in beskrivningen på varan");
-  char NyaVaranBeskrivning = getchar();
-  while (getchar() !='\n');
+  char NyaVaranBeskrivning[256];
+  fgets(NyaVaranBeskrivning, sizeof(NyaVaranBeskrivning), stdin);
+  printf("%s\n",NyaVaranBeskrivning);
 
   puts("Mata in Priset på varan");
-  int NyaVaranPriset = getchar();
-  while (getchar() !='\n');
-
+  int NyaVaranPriset;
+  scanf("%d",&NyaVaranPriset);
+  
   puts("Mata in Hyllplats på varan");
-  int NyaVaranLagerhylla = getchar();
-  while (getchar() !='\n');
+  char NyaVaranLagerhylla[256];
+  fgets(NyaVaranLagerhylla, sizeof(NyaVaranLagerhylla), stdin);
 
   puts("Mata in Antalet av varan");
-  int NyaVaranAntal = getchar();
-  while (getchar() !='\n');
-  
+  int NyaVaranAntal;
+  scanf("%d",&NyaVaranAntal);
+  printf("%i\n",NyaVaranAntal);
 
   // lagerSkapning({NyaVarannamn,NyaVaranBeskrivning,NyaVaranPriset,NyaVaranLagerplats}) 
 
 }
 void taBortVara(void){
   //visaVara() FIXME
-  puts ("REEEKT1");
+  puts ("Ta bort varan? [J]a/[N]ej");
+  char b = toupper(getchar());
+  while (getchar() !='\n');
+
+  if (b == 'J'){
+    puts("fixmeRemoveitem");
+      }
+  else if (b == 'N'){
+    puts("fixmeNej");
+      }
+  else {
+    puts("Skriv Ja eller Nej");
+      }
+  // Måste få programmet att fastna i välja menyn här nu avbryts bara allt
 }
 void redigeraVara(void){
   /*
@@ -168,8 +182,8 @@ void visaVara(void){
     Visa 20 första varorna i arrayen som en lista 1-20 
   */
   puts("Mata in Numret på varan du vill visa");
-  int VisaVaran = getchar();
-  while (getchar() !='\n');
+  int VisaVaran;
+  scanf("%d",&VisaVaran);
   
   /* 
 printf("%c\n",Namn);
