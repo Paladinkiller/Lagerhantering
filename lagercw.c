@@ -95,45 +95,42 @@ return true;
 }
 */
 vara_t vara;
-
 puts("mata in namnet på varan");
 char buffer[128];
 fgets (buffer, sizeof(buffer), stdin);
 strcpy(vara.namn, buffer);
 printf("%s\n",vara.namn);
-
 puts("mata in beskrivningen på varan");
 char buffer2[256];
 fgets (buffer2, sizeof(buffer2), stdin);
 strcpy(vara.beskrivning, buffer2);
-
 puts("mata in priset på varan");
 int buffer3;
 scanf("%d",&buffer3);
 vara.pris = buffer3;
 printf("%d\n", vara.pris);
-
 puts("mata in lagerplatsens bokstavsindex för varan");
 char buffer4[64];
 fgets (buffer4, sizeof(buffer4), stdin);
 strcpy(vara.lagerplats.bokstav, buffer4);
-
 puts("mata in lagerplatsens nummerindex för varan");
 int buffer5;
 scanf("%d",&buffer5);
 vara.lagerplats.nummer= buffer5;
-
 puts("mata in antalet av varan");
 int buffer6;
 scanf("%d",&buffer6);
 vara.antal = buffer6;
-
 lager->varor[lager->antal_varor]=vara;
-
 }
 void taBortVara(lager_t *lager){
 printf("%s\n", lager->varor[0].namn);
+printf("%s\n", lager->varor[0].beskrivning);
+printf("%d\n", lager->varor[0].pris);
+printf("%d\n", lager->varor[0].lagerplats.nummer);
+printf("%d\n", lager->varor[0].antal);
 //visaVara() FIXME
+
 puts ("Ta bort varan? [J]a/[N]ej");
 char b = toupper(getchar());
 while (getchar() !='\n');
