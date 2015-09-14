@@ -53,7 +53,7 @@ int main (int argc, char *argv[]){
 
 bool menyn (lager_t *lager) {
   alternativPrint();
-  return taInVal(&lager);
+  return taInVal(lager);
 }
 void alternativPrint (void) {
   puts ("[L]ägga till en vara");
@@ -71,10 +71,10 @@ bool taInVal (lager_t *lager){
   while (getchar() !='\n');
   
   if (b == 'L'){
-   laggTillVara (&lager);
+   laggTillVara (lager);
   }
   else if (b == 'T'){
-    taBortVara (&lager);
+    taBortVara (lager);
   }
   else if (b == 'R'){
     redigeraVara ();
@@ -104,15 +104,35 @@ bool taInVal (lager_t *lager){
 
 
 void laggTillVara(lager_t *lager){
-
+  /*  if(lager.antal <1024)
+    {
+      lager.varor[lager.vara.antal] = vara;
+      lager.vara.antal +=1;
+      return true;
+    }
+  */
   vara_t vara;
   puts("mata in namnet på varan");
-  char buffer[1000];
+  char buffer[128];
   fgets (buffer, sizeof(buffer), stdin);
   strcpy(vara.namn, buffer);
   printf("%s\n",vara.namn);
-  /*
-  puts("mata in beskrivningen av varan");
+  
+
+  puts("mata in beskrivningen på varan");
+  char buffer2[256];
+  fgets (buffer2, sizeof(buffer2), stdin);
+  strcpy(vara.beskrivning, buffer2);
+  printf("%s\n",vara.beskrivning);
+  
+
+
+  lager->varor[lager->antal_varor]=vara;
+
+/*
+  
+
+puts("mata in beskrivningen av varan");
   char vara.beskrivning;
   fgets (vara.beskrivning, sizeof(vara.beskrivning), stdin);
 
@@ -135,7 +155,7 @@ void laggTillVara(lager_t *lager){
 }
 
 void taBortVara(lager_t *lager){
-  printf("%s\n", &vara.namn);
+  printf("%s\n", lager->varor[0].namn);
   //visaVara() FIXME
   puts ("Ta bort varan? [J]a/[N]ej");
   char b = toupper(getchar());
