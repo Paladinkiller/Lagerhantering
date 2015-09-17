@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <string.h>
 struct lagerplats{
-char bokstav [64];
+char bokstav[64] ;
 int nummer;
 };
 typedef struct lagerplats lagerplats_t;
@@ -108,11 +108,12 @@ puts("mata in priset på varan");
 int buffer3;
 scanf("%d",&buffer3);
 vara.pris = buffer3;
-
 puts("mata in lagerplatsens bokstavsindex för varan");
+
 char buffer4[64];
 fgets (buffer4, sizeof(buffer4), stdin);
 strcpy(vara.lagerplats.bokstav, buffer4);
+while (getchar() !='\n');
 
 puts("mata in lagerplatsens nummerindex för varan");
 int buffer5;
@@ -124,6 +125,7 @@ int buffer6;
 scanf("%d",&buffer6);
 vara.antal = buffer6;
 lager->varor[lager->antal_varor]=vara;
+while (getchar() !='\n');
 }
 void taBortVara(lager_t *lager){
   /*
@@ -221,6 +223,7 @@ while (getchar() !='\n');
   puts("Mata in nummret för varan");
   int indexvara;
   scanf("%d",&indexvara);
+  while (getchar() !='\n');
   printf("%s\n", lager->varor[(indexvara-1)].namn);
   printf("%s\n", lager->varor[(indexvara-1)].beskrivning);
   printf("%d\n", lager->varor[(indexvara-1)].pris);
@@ -233,6 +236,7 @@ else {
 puts("mata in numret för varan");
 int indexvara;
 scanf("%d",&indexvara);
+while (getchar() !='\n');
 printf("%s\n", lager->varor[(indexvara-1)].namn);
 printf("%s\n", lager->varor[(indexvara-1)].beskrivning);
 printf("%d\n", lager->varor[(indexvara-1)].pris);
@@ -241,9 +245,3 @@ printf("%d\n", lager->varor[(indexvara-1)].lagerplats.nummer);
 printf("%d\n", lager->varor[(indexvara-1)].antal);
  }
 }
-
-
-    
-    
-    
-			      
