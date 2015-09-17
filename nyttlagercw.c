@@ -82,7 +82,7 @@ int main (int argc, char *argv[]){
   puts ("Ån[G]ra senaste ändrigen");
   puts ("Lista [H]ela varukorgen ");
   puts ("[A]vsluta");
-  char input = ask_question_char("vad vill du göra idag?","'LlTtRrGgHhAa");
+  char input = ask_question_char("vad vill du göra idag?","LlTtRrGgHhAa");
 
   if (input == 'L'){
     laggTillVara (&lager);
