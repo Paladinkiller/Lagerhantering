@@ -108,32 +108,40 @@ int main (int argc, char *argv[]){
   bool run = true;
   vara_t varor[128];
   lager_t lager = {.antal_varor=0, .max_varor=sizeof(varor)/sizeof(vara_t), .varor=varor, .intindex=0};
-  puts ("[L]ägga till en vara"); 
+  /* puts ("[L]ägga till en vara"); 
   puts ("[T]a bort en vara");
   puts ("[R]edigera vara");
   puts ("Ån[G]ra senaste ändrigen");
   puts ("Lista [H]ela varukorgen ");
   puts ("[A]vsluta");
-  char input = ask_question_char("vad vill du göra idag?","LTRGHA");
+  char input = ask_question_char("vad vill du göra idag?","LTRGHA"); */
   while(run){
-    if (input == 'L'){
-      laggTillVara (&lager);
-    }
-    else if (input == 'T'){
-      taBortVara ();
-    }
-    else if (input == 'R'){
-      redigeraVara ();
-    }
-    else if (input == 'G'){
-      angraSenaste ();
-    }
-    else if (input == 'H'){
-      listaKorgen ();
-    }
-    else {
-      run = byebye();
-    }
+      puts ("[L]ägga till en vara"); 
+      puts ("[T]a bort en vara");
+      puts ("[R]edigera vara");
+      puts ("Ån[G]ra senaste ändrigen");
+      puts ("Lista [H]ela varukorgen ");
+      puts ("[A]vsluta");
+      char input = ask_question_char("vad vill du göra idag?","LTRGHA");
+
+      if (input == 'L'){
+	laggTillVara (&lager);
+      }
+      else if (input == 'T'){
+	taBortVara ();
+      }
+      else if (input == 'R'){
+	redigeraVara ();
+      }
+      else if (input == 'G'){
+	angraSenaste ();
+      }
+      else if (input == 'H'){
+	listaKorgen ();
+      }
+      else {
+	run = byebye();
+      }
   }
   return 0;
 }
