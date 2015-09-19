@@ -11,8 +11,8 @@ struct lagerplats{
 };
 typedef struct lagerplats lagerplats_t;
 struct vara{
-  char namn [128];
-  char beskrivning [256];
+  char namn;
+  char beskrivning;
   lagerplats_t lagerplats;
   int pris;
   int antal;
@@ -29,7 +29,7 @@ char ask_question_char(char *q, char *alt)
 {
   char input = 0;
 
-  printf("%s [%s]\n", q, alt);
+  printf("%s\n", q);
   do {
     if (input)
       {
@@ -46,10 +46,18 @@ char ask_question_char(char *q, char *alt)
   return input;
 }
 
-void ask_question_string(char *q,char *input){
- 
-  printf("%s\n",q);
-  gets(input);
+void ask_question_string(char *q,char input){
+  bool svar = false;
+  while(!svar){
+    printf("%s\n",q);
+    gets(&input);
+    if(isalpha(input) !=0){
+      svar = true;
+    }
+  else {
+    printf("felaktigt svar, ange en sträng med bokstäver a-z .\n");
+  }
+  }
 }
 int ask_question_int(char *q){
   printf("%s\n",q);
@@ -68,10 +76,11 @@ void laggTillVara(lager_t *lager){
   vara_t vara;
   lager->antal_varor = lager->antal_varor + 1;
 
-  ask_question_string("Mata in namnet på varan:",vara.namn);
-  ask_question_string("Mata in Beskrivningen på varan:",vara.beskrivning);
+  ask_question_string("Mata in namnet på varan:", vara.namn);
+  ask_question_string("Mata in Beskrivningen på varan:", vara.beskrivning);
   vara.pris = ask_question_int("Mata in priset för varan:");
   vara.antal = ask_question_int("Mata in antalet av varan:");
+  lager->varor[lager->antal_varor]=vara;
 }
 
 void taBortVara(void){
