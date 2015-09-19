@@ -46,15 +46,32 @@ char ask_question_char(char *q, char *alt)
   return input;
 }
 
-void ask_question_string(void){
-  puts("FIXMEask_question_string");
+void ask_question_string(char *q,char *input){
+ 
+  printf("%s\n",q);
+  gets(input);
 }
-
+int ask_question_int(char *q){
+  printf("%s\n",q);
+  char buffer[sizeof(int)*8+1];
+ start:
+  gets(buffer);
+  if(atoi(buffer) != 0){
+    return atoi(buffer);
+  }
+  else {
+    printf("felaktigt svar, ange en siffra.\n");
+    goto start;
+  }
+}
 void laggTillVara(lager_t *lager){
   vara_t vara;
   lager->antal_varor = lager->antal_varor + 1;
 
-  ask_question_string();
+  ask_question_string("Mata in namnet på varan:",vara.namn);
+  ask_question_string("Mata in Beskrivningen på varan:",vara.beskrivning);
+  vara.pris = ask_question_int("Mata in priset för varan:");
+  vara.antal = ask_question_int("Mata in antalet av varan:");
 }
 
 void taBortVara(void){
