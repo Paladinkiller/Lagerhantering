@@ -64,7 +64,7 @@ void kopieraLager (lager_t *lager, lager_t *lager_kopia){
   lager_kopia->antal_varor = lager->antal_varor;
   lager_kopia->max_varor = lager->max_varor;
   lager_kopia->intindex = lager->intindex;
-  for(int i = 0; i < lager->antal_varor; ++i){
+  for(int i = 0; i < lager->antal_varor+1; ++i){
     strcpy(lager_kopia->varor[i].namn, lager->varor[i].namn);
     strcpy(lager_kopia->varor[i].beskrivning, lager->varor[i].beskrivning);
     lager_kopia->varor[i].pris = lager->varor[i].pris;
@@ -208,7 +208,7 @@ void redigeraVara(lager_t *lager, lager_t *lager_kopia){
     return;
   }
   while(lage){
-    char input = ask_question_char ("Mata in det du vill modda \n[N]amn\n[B]eskrivningen\n[P]riset\n[L]agerhyllan\nAn[t]alet\neller[A]vbryta:","NBPLA");
+    char input = ask_question_char ("Mata in det du vill modda \n[N]amn\n[B]eskrivningen\n[P]riset\n[L]agerhyllan\nAn[t]alet\neller[A]vbryta:","NBPLTA");
     
     if (input == 'N'){
       printf("Aktuellt namn: %s\n", lager->varor[val-1].namn);
@@ -221,6 +221,10 @@ void redigeraVara(lager_t *lager, lager_t *lager_kopia){
     else if (input == 'P'){
       printf("Aktuellt pris: %d\n", lager->varor[val-1].pris);
       lager->varor[val-1].pris = ask_question_int("Nytt Pris:");
+    }
+    else if (input == 'T'){
+      printf("Aktuellt antal: %d\n", lager->varor[val-1].antal);
+      lager->varor[val-1].antal = ask_question_int("Nytt Antal:");
     }
     else if (input == 'L'){
       int c=0;
@@ -271,8 +275,9 @@ bool byebye(void){
 int main (int argc, char *argv[]){
   bool run = true;
   vara_t varor[128];
+  vara_t varork[128];
   lager_t lager = {.antal_varor=0, .max_varor=sizeof(varor)/sizeof(vara_t), .varor=varor, .intindex=0};
- lager_t lager_kopia = {.antal_varor=0, .max_varor=sizeof(varor)/sizeof(vara_t), .varor=varor, .intindex=0};
+ lager_t lager_kopia = {.antal_varor=0, .max_varor=sizeof(varork)/sizeof(vara_t), .varor=varork, .intindex=0};
   while(run){
     puts ("[L]ägga till en vara"); 
     puts ("[T]a bort en vara");
