@@ -20,7 +20,11 @@ struct lager{
   int max_varor;
   int antal_varor;
   vara_t *varor;
-  int intindex;};
+  int intindex;
+
+};
+
+
 typedef struct lager lager_t;
 
 bool bara_letters(char string[]){
@@ -34,6 +38,8 @@ bool bara_letters(char string[]){
   return true;
 }
 
+void listaKorgen(lager_t *lager_kopia);
+
 char ask_question_char(char *q, char *alt)
 {
   char input = 0;
@@ -42,7 +48,7 @@ char ask_question_char(char *q, char *alt)
   do {
     if (input)
       {
-        printf("Bad input '%c', try again [%s]\n", input, alt);
+        printf("Dålig inmatning '%c', pröva igen [%s]\n", input, alt);
         Clear_stdin;
       }
 
@@ -54,7 +60,19 @@ char ask_question_char(char *q, char *alt)
   Clear_stdin;
   return input;
 }
-
+void kopieraLager (lager_t *lager, lager_t *lager_kopia){
+  lager_kopia->antal_varor = lager->antal_varor;
+  lager_kopia->max_varor = lager->max_varor;
+  lager_kopia->intindex = lager->intindex;
+  for(int i = 0; i < lager->antal_varor; ++i){
+    strcpy(lager_kopia->varor[i].namn, lager->varor[i].namn);
+    strcpy(lager_kopia->varor[i].beskrivning, lager->varor[i].beskrivning);
+    lager_kopia->varor[i].pris = lager->varor[i].pris;
+    lager_kopia->varor[i].antal = lager->varor[i].antal;
+    lager_kopia->varor[i].platsnummer = lager->varor[i].platsnummer;
+    lager_kopia->varor[i].platsbokstav = lager->varor[i].platsbokstav;
+  }
+}
 void ask_question_string(char *q,char *indata){
   bool svar = false;
   while(!svar){
@@ -83,16 +101,17 @@ int ask_question_int(char *q){
 }
 
 void printaVara(vara_t *vara){
-  printf("%s\n", vara->namn);
-  printf("%s\n", vara->beskrivning);
-  printf("%d\n", vara->pris);
-  printf("%d\n", vara->antal);
-  printf("%c", vara->platsbokstav);
+  printf("Namn:%s\n", vara->namn);
+  printf("Beskrivning:%s\n", vara->beskrivning);
+  printf("Pris:%d\n", vara->pris);
+  printf("Antal:%d\n", vara->antal);
+  printf("Lagerindex:%c", vara->platsbokstav);
   printf("%d\n", vara->platsnummer);
 }
 
-void laggTillVara(lager_t *lager){ 
-  vara_t vara; 
+void laggTillVara(lager_t *lager, lager_t *lager_kopia){ 
+  vara_t vara;
+  kopieraLager(lager, lager_kopia);
   ask_question_string("Mata in namnet på varan:", vara.namn); 
   ask_question_string("Mata in Beskrivningen på varan:", vara.beskrivning);
   vara.pris = ask_question_int("Mata in priset för varan:");
@@ -126,12 +145,28 @@ void laggTillVara(lager_t *lager){
   printaVara(&vara);
 }
 
-void taBortVara(lager_t *lager, int index){
-  puts("FIXMEtaBortVara");
+void taBortVara(lager_t *lager,int val, lager_t *lager_kopia){
+  kopieraLager(lager, lager_kopia);
+  val = (ask_question_int("Mata in numret på varan du vill ta bort:")) -1;
+  if(lager->antal_varor==0 || val > lager->antal_varor){
+    puts("Inga varor eller fel index");
+    return;
+  }
+  else if (val< lager->antal_varor){
+
+    for (val; val<=lager->antal_varor ; val++){
+      lager->varor[val] = lager->varor[val+1];
+    }
+  }
+  
+  lager->antal_varor = lager->antal_varor - 1 ;
 }
 
 void listaKorgenKillMe(lager_t *lager, int start, int slut){
   for (int c=start;c<slut ; c++){
+    if (c>lager->antal_varor-1){
+      return;
+    }
     printf("%d  %s\n",c+1,lager->varor[c].namn); 
   }
 }
@@ -163,8 +198,9 @@ void listaKorgen (lager_t *lager){
   
 
 }
-void redigeraVara(lager_t *lager){
+void redigeraVara(lager_t *lager, lager_t *lager_kopia){
   bool lage = true;
+  kopieraLager(lager, lager_kopia);
   int val = ask_question_int("Mata in numret du vill ändra:");
 
   if(val==0 || val > lager->antal_varor){
@@ -200,7 +236,7 @@ void redigeraVara(lager_t *lager){
 	else if (lager->varor[c].platsbokstav==bokstav && lager->varor[c].platsnummer==nummer){
 	  if (strcmp (lager->varor[c].namn, lager->varor[val-1].namn)==0){
 	    lager->varor[c].antal += lager->varor[val-1].antal;
-	    taBortVara(lager, val-1);
+	    taBortVara(lager, val-1, lager_kopia);
 	    lage2 = false;
 	  }
 	  else{
@@ -223,9 +259,6 @@ void redigeraVara(lager_t *lager){
 }
 
 
-void angraSenaste(void){
-  puts("FIXMEangraSenaste");
-}
 bool byebye(void){
   char input = ask_question_char("är du säker på att du vill avsluta? [J]a/[N]ej?","NJ");
   if (input == 'J'){
@@ -239,6 +272,7 @@ int main (int argc, char *argv[]){
   bool run = true;
   vara_t varor[128];
   lager_t lager = {.antal_varor=0, .max_varor=sizeof(varor)/sizeof(vara_t), .varor=varor, .intindex=0};
+ lager_t lager_kopia = {.antal_varor=0, .max_varor=sizeof(varor)/sizeof(vara_t), .varor=varor, .intindex=0};
   while(run){
     puts ("[L]ägga till en vara"); 
     puts ("[T]a bort en vara");
@@ -249,16 +283,16 @@ int main (int argc, char *argv[]){
     char input = ask_question_char("vad vill du göra idag?","LTRGHA");
     
     if (input == 'L'){
-      laggTillVara (&lager);
+      laggTillVara (&lager, &lager_kopia);
     }
     else if (input == 'T'){
-      taBortVara (&lager, 0);
+      taBortVara (&lager, 0, &lager_kopia);
     }
     else if (input == 'R'){
-      redigeraVara (&lager);
+      redigeraVara (&lager, &lager_kopia);
     }
     else if (input == 'G'){
-      angraSenaste ();
+      kopieraLager(&lager_kopia, &lager);
     }
     else if (input == 'H'){
       listaKorgen (&lager);
