@@ -99,11 +99,11 @@ int ask_question_int(char *q){
   char buffer[sizeof(int)*8+1]; 
  start: 
   gets(buffer); 
-  if(atoi(buffer) != 0){ 
+  if((atoi(buffer) != 0) && (atoi(buffer) > 0)){ 
     return atoi(buffer); 
   } 
   else { 
-    printf("felaktigt svar, ange en siffra.\n"); 
+    printf("felaktigt svar, ange ett positivt tal .\n"); 
     goto start; 
   } 
 }
