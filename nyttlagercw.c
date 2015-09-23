@@ -17,7 +17,6 @@ struct vara{
 };
 typedef struct vara vara_t;
 struct lager{
-  int max_varor;
   int antal_varor;
   vara_t *varor;
 
@@ -69,7 +68,6 @@ char ask_question_char(char *q, char *alt)
 }
 void kopieraLager (lager_t *lager, lager_t *lager_kopia){
   lager_kopia->antal_varor = lager->antal_varor;
-  lager_kopia->max_varor = lager->max_varor;
 
   for(int i = 0; i < lager->antal_varor+1; ++i){
     strcpy(lager_kopia->varor[i].namn, lager->varor[i].namn);
@@ -283,8 +281,8 @@ int main (int argc, char *argv[]){
   bool run = true;
   vara_t varor[128];
   vara_t varork[128];
-  lager_t lager = {.antal_varor=0, .max_varor=sizeof(varor)/sizeof(vara_t), .varor=varor};
- lager_t lager_kopia = {.antal_varor=0, .max_varor=sizeof(varork)/sizeof(vara_t), .varor=varork};
+  lager_t lager = {.antal_varor=0, .varor=varor};
+ lager_t lager_kopia = {.antal_varor=0, .varor=varork};
   while(run){
     puts ("[L]ägga till en vara"); 
     puts ("[T]a bort en vara");
